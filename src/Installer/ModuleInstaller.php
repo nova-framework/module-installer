@@ -65,9 +65,7 @@ class ModuleInstaller extends LibraryInstaller
 
         $postAutoloadDump = 'Nova\Composer\Installer\ModuleInstaller::postAutoloadDump';
 
-        if (! isset($scripts['post-autoload-dump']) ||
-            ! in_array($postAutoloadDump, $scripts['post-autoload-dump'])
-        ) {
+        if (! isset($scripts['post-autoload-dump']) || ! in_array($postAutoloadDump, $scripts['post-autoload-dump'])) {
             $this->warnUser(
                 'Action required!',
                 'Please update your application composer.json file to add the post-autoload-dump hook.'
@@ -214,16 +212,28 @@ class ModuleInstaller extends LibraryInstaller
 
         $data = implode(",\n", $data);
 
-        $contents = <<<PHP
+        if (! empty($data)) {
+            $contents = <<<PHP
 <?php
 \$baseDir = dirname(dirname(__FILE__));
-return [
-    'modules' => [
+
+return array(
+    'modules' => array(
 $data
-    ]
-];
+    )
+);
 
 PHP;
+        } else {
+            $contents = <<<'PHP'
+<?php
+$baseDir = dirname(dirname(__FILE__));
+
+return array(
+    'modules' => array()
+);
+PHP;
+        }
 
         $root = str_replace(
             DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR,
@@ -458,25 +468,15 @@ PHP;
             return;
         }
 
-        $oldPath = dirname(dirname($path)) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'modules.php';
-
-        if (file_exists($oldPath)) {
-            copy($oldPath, $path);
-
-            if ($this->io->isVerbose()) {
-                $this->io->write('config/modules.php found and copied to vendor/nova-modules.php.');
-            }
-            return;
-        }
-
         $contents = <<<'PHP'
 <?php
 $baseDir = dirname(dirname(__FILE__));
-return [
-    'modules' => []
-];
+
+return array(
+    'modules' => array()
+);
 PHP;
-        if (!is_dir(dirname($path))) {
+        if (! is_dir(dirname($path))) {
             mkdir(dirname($path));
         }
 
@@ -504,16 +504,28 @@ PHP;
             $data .= sprintf("        '%s' => '%s',\n", $name, $modulePath);
         }
 
-        $contents = <<<PHP
+        if (! empty($data)) {
+            $contents = <<<PHP
 <?php
 \$baseDir = dirname(dirname(__FILE__));
-return [
-    'modules' => [
+
+return array(
+    'modules' => array(
 $data
-    ]
-];
+    )
+);
 
 PHP;
+        } else {
+            $contents = <<<'PHP'
+<?php
+$baseDir = dirname(dirname(__FILE__));
+
+return array(
+    'modules' => array()
+);
+PHP;
+        }
 
         $root = str_replace('\\', '/', $root);
 
