@@ -42,7 +42,7 @@ class ModuleInstaller extends LibraryInstaller
      * Check that the root composer.json file use the post-autoload-dump hook
      *
      * If not, warn the user they need to update their application's composer file.
-     * Do nothing if the main project is not a project (if it's a plugin in development).
+     * Do nothing if the main project is not a project (if it's a module in development).
      *
      * @param Composer $composer object
      * @return void
@@ -136,13 +136,13 @@ class ModuleInstaller extends LibraryInstaller
     /**
      * Find all modules available
      *
-     * Add all composer packages of type novaphp-module, and all modules located
-     * in the modules directory to a plugin-name indexed array of paths
+     * Add all composer packages of type nova-module, and all modules located
+     * in the modules directory to a module-name indexed array of paths
      *
      * @param array $packages an array of \Composer\Package\PackageInterface objects
      * @param string $modulesDir the path to the modules dir
      * @param string $vendorDir the path to the vendor dir
-     * @return array plugin-name indexed paths to modules
+     * @return array module-name indexed paths to modules
      */
     public static function determineModules($packages, $modulesDir = 'modules', $vendorDir = 'vendor')
     {
@@ -252,7 +252,7 @@ PHP;
     }
 
     /**
-     * Path to the plugin config file
+     * Path to the module config file
      *
      * @param string $vendorDir path to composer-vendor dir
      * @return string absolute file path
@@ -263,7 +263,7 @@ PHP;
     }
 
     /**
-     * Get the primary namespace for a plugin package.
+     * Get the primary namespace for a module package.
      *
      * @param \Composer\Package\PackageInterface $package composer object
      * @return string The package's primary namespace.
@@ -311,7 +311,7 @@ PHP;
             throw new RuntimeException(
                 sprintf(
                     "Unable to get primary namespace for package %s." .
-                    "\nEnsure you have added proper 'autoload' section to your plugin's config" .
+                    "\nEnsure you have added proper 'autoload' section to your Module's config" .
                     " as stated in README on https://github.com/nova-framework/module-installer",
                     $package->getName()
                 )
@@ -334,10 +334,10 @@ PHP;
     }
 
     /**
-     * Installs specific plugin.
+     * Installs specific module.
      *
-     * After the plugin is installed, app's `nova-modules.php` config file is updated with
-     * plugin namespace to path mapping.
+     * After the module is installed, app's `nova-modules.php` config file is updated with
+     * module namespace to path mapping.
      *
      * @param \Composer\Repository\InstalledRepositoryInterface $repo Repository in which to check.
      * @param \Composer\Package\PackageInterface $package Package instance.
@@ -355,10 +355,10 @@ PHP;
     }
 
     /**
-     * Updates specific plugin.
+     * Updates specific module.
      *
-     * After the plugin is installed, app's `nova-modules.php` config file is updated with
-     * plugin namespace to path mapping.
+     * After the module is installed, app's `nova-modules.php` config file is updated with
+     * module namespace to path mapping.
      *
      * @param \Composer\Repository\InstalledRepositoryInterface $repo Repository in which to check.
      * @param \Composer\Package\PackageInterface $initial Already installed package version.
@@ -401,10 +401,10 @@ PHP;
     }
 
     /**
-     * Update the plugin path for a given package.
+     * Update the module path for a given package.
      *
-     * @param string $name The plugin name being installed.
-     * @param string $path The path, the plugin is being installed into.
+     * @param string $name The module name being installed.
+     * @param string $path The path, the module is being installed into.
      */
     public function updateConfig($name, $path)
     {
@@ -422,7 +422,7 @@ PHP;
 
         if (! isset($config)) {
             $this->io->write(
-                'ERROR - `vendor/nova-modules.php` file is invalid. Plugin path configuration not updated.'
+                'ERROR - `vendor/nova-modules.php` file is invalid. Module path configuration not updated.'
             );
 
             return;
