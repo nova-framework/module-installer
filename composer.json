@@ -1,0 +1,26 @@
+{
+    "name": "nova-framework/module-installer",
+    "description": "A composer installer for Nova 4.x modules.",
+    "type": "composer-installer",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Virgil-Adrian Teaca",
+            "email": "virgil@giulianaeassociati.com",
+            "homepage": "http://giulianaeassociati.com",
+            "role": "Developer"
+        }
+    ],
+    "require-dev": {
+        "composer/composer": "1.0.*@dev",
+    },
+    "autoload": {
+        "psr-4": {
+            "Nova\\Composer\\": "src"
+        }
+    },
+    "extra": {
+        "class": "Nova\\Composer\\Installer\\ModuleInstaller"
+    },
+    "minimum-stability": "dev"
+}
