@@ -215,6 +215,7 @@ class ModuleInstaller extends LibraryInstaller
         if (! empty($data)) {
             $contents = <<<PHP
 <?php
+
 \$baseDir = dirname(dirname(__FILE__));
 
 return array(
@@ -227,6 +228,7 @@ PHP;
         } else {
             $contents = <<<'PHP'
 <?php
+
 $baseDir = dirname(dirname(__FILE__));
 
 return array(
@@ -470,6 +472,7 @@ PHP;
 
         $contents = <<<'PHP'
 <?php
+
 $baseDir = dirname(dirname(__FILE__));
 
 return array(
@@ -507,6 +510,7 @@ PHP;
         if (! empty($data)) {
             $contents = <<<PHP
 <?php
+
 \$baseDir = dirname(dirname(__FILE__));
 
 return array(
@@ -519,6 +523,7 @@ PHP;
         } else {
             $contents = <<<'PHP'
 <?php
+
 $baseDir = dirname(dirname(__FILE__));
 
 return array(
