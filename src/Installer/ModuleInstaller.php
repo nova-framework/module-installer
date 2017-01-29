@@ -151,7 +151,7 @@ class ModuleInstaller extends LibraryInstaller
         $modules = array();
 
         foreach ($packages as $package) {
-            if ($package->getType() !== 'novaphp-module') {
+            if ($package->getType() !== 'nova-module') {
                 continue;
             }
 
@@ -312,13 +312,13 @@ PHP;
     /**
      * Decides if the installer supports the given type.
      *
-     * This installer only supports package of type 'novaphp-module'.
+     * This installer only supports package of type 'nova-module'.
      *
      * @return bool
      */
     public function supports($packageType)
     {
-        return ('novaphp-module' === $packageType);
+        return ('nova-module' === $packageType);
     }
 
     /**
