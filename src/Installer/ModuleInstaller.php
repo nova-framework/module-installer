@@ -247,7 +247,7 @@ PHP;
      */
     protected static function getConfigFile($vendorDir)
     {
-        return $vendorDir . DIRECTORY_SEPARATOR . 'novaphp-modules.php';
+        return $vendorDir . DIRECTORY_SEPARATOR . 'nova-modules.php';
     }
 
     /**
@@ -324,7 +324,7 @@ PHP;
     /**
      * Installs specific plugin.
      *
-     * After the plugin is installed, app's `novaphp-modules.php` config file is updated with
+     * After the plugin is installed, app's `nova-modules.php` config file is updated with
      * plugin namespace to path mapping.
      *
      * @param \Composer\Repository\InstalledRepositoryInterface $repo Repository in which to check.
@@ -345,7 +345,7 @@ PHP;
     /**
      * Updates specific plugin.
      *
-     * After the plugin is installed, app's `novaphp-modules.php` config file is updated with
+     * After the plugin is installed, app's `nova-modules.php` config file is updated with
      * plugin namespace to path mapping.
      *
      * @param \Composer\Repository\InstalledRepositoryInterface $repo Repository in which to check.
@@ -410,7 +410,7 @@ PHP;
 
         if (! isset($config)) {
             $this->io->write(
-                'ERROR - `vendor/novaphp-modules.php` file is invalid. Plugin path configuration not updated.'
+                'ERROR - `vendor/nova-modules.php` file is invalid. Plugin path configuration not updated.'
             );
 
             return;
@@ -441,7 +441,7 @@ PHP;
     }
 
     /**
-     * Ensure that the vendor/novaphp-modules.php file exists.
+     * Ensure that the vendor/nova-modules.php file exists.
      *
      * If config/modules.php is found - copy it to the vendor folder
      *
@@ -452,7 +452,7 @@ PHP;
     {
         if (file_exists($path)) {
             if ($this->io->isVerbose()) {
-                $this->io->write('vendor/novaphp-modules.php exists.');
+                $this->io->write('vendor/nova-modules.php exists.');
             }
 
             return;
@@ -464,7 +464,7 @@ PHP;
             copy($oldPath, $path);
 
             if ($this->io->isVerbose()) {
-                $this->io->write('config/modules.php found and copied to vendor/novaphp-modules.php.');
+                $this->io->write('config/modules.php found and copied to vendor/nova-modules.php.');
             }
             return;
         }
@@ -483,7 +483,7 @@ PHP;
         file_put_contents($path, $contents);
 
         if ($this->io->isVerbose()) {
-            $this->io->write('Created vendor/novaphp-modules.php');
+            $this->io->write('Created vendor/nova-modules.php');
         }
     }
 
