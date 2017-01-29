@@ -63,7 +63,7 @@ class ModuleInstaller extends LibraryInstaller
 
         $scripts = $composer->getPackage()->getScripts();
 
-        $postAutoloadDump = 'Nova\Composer\Installer\PluginInstaller::postAutoloadDump';
+        $postAutoloadDump = 'Nova\Composer\Installer\ModuleInstaller::postAutoloadDump';
 
         if (! isset($scripts['post-autoload-dump']) ||
             ! in_array($postAutoloadDump, $scripts['post-autoload-dump'])
