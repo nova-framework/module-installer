@@ -232,7 +232,7 @@ class ModuleInstaller extends LibraryInstaller
              'path'     => '%s',
              'version'  => '%s',
              'location' => '%s',
-         ),", $name, $modulePath, $version, $location);
+         )", $name, $modulePath, $version, $location);
         }
 
         $data = implode(",\n", $data);
