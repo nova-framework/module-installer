@@ -157,7 +157,9 @@ class ModuleInstaller extends LibraryInstaller
 
             $path = $vendorDir . DIRECTORY_SEPARATOR . $package->getPrettyName();
 
-            $modules[$namespace] = $path;
+            $version = $package->getVersion();
+
+            $modules[$namespace] = array('version' => $version, 'path' => $path, 'location' => 'vendor');
         }
 
         if (is_dir($modulesDir)) {
@@ -170,7 +172,20 @@ class ModuleInstaller extends LibraryInstaller
 
                 $name = $info->getFilename();
 
-                $modules[$name] = $modulesDir . DIRECTORY_SEPARATOR . $name;
+                $path = $modulesDir . DIRECTORY_SEPARATOR . $name;
+
+                // Determine the local Package version.
+                $filePath = $path .'module.json';
+
+                if (is_readable($filePath)) {
+                    $properties = json_decode(file_get_contents($filePath), true);
+
+                    $version = $properties['version'];
+                } else {
+                    $version = '0.0.0.0';
+                }
+
+                $modules[$name] = array('version' => $version, 'path' => $path, 'location' => 'local');
             }
         }
 
@@ -192,7 +207,12 @@ class ModuleInstaller extends LibraryInstaller
 
         $data = array();
 
-        foreach ($modules as $name => $modulePath) {
+        foreach ($modules as $name => $properties) {
+            $modulePath = $properties['path'];
+            $version    = $properties['version'];
+            $location   = $properties['location'];
+
+            //
             $modulePath = str_replace(
                 DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR,
                 DIRECTORY_SEPARATOR,
@@ -207,7 +227,12 @@ class ModuleInstaller extends LibraryInstaller
             // Namespaced modules should use /
             $name = str_replace('\\', '/', $name);
 
-            $data[] = sprintf("        '%s' => '%s'", $name, $modulePath);
+            $data[] = sprintf(
+"        '%s' => array(
+             'path'     => '%s',
+             'version'  => '%s',
+             'location' => '%s',
+         ),", $name, $modulePath, $version, $location);
         }
 
         $data = implode(",\n", $data);
@@ -351,7 +376,9 @@ PHP;
 
         $namespace = static::primaryNamespace($package);
 
-        $this->updateConfig($namespace, $path);
+        $version = $package->getVersion();
+
+        $this->updateConfig($namespace, $path, $version);
     }
 
     /**
@@ -379,7 +406,9 @@ PHP;
 
         $namespace = static::primaryNamespace($target);
 
-        $this->updateConfig($namespace, $path);
+        $version = $target->getVersion();
+
+        $this->updateConfig($namespace, $path, $version);
     }
 
     /**
@@ -405,8 +434,9 @@ PHP;
      *
      * @param string $name The module name being installed.
      * @param string $path The path, the module is being installed into.
+     * @param string $version The module version being installed.
      */
-    public function updateConfig($name, $path)
+    public function updateConfig($name, $path, $version = null)
     {
         $name = str_replace('\\', '/', $name);
 
@@ -446,7 +476,7 @@ PHP;
 
             $path .= '/';
 
-            $config['modules'][$name] = $path;
+            $config['modules'][$name] = array('version' => $version, 'path' => $path, 'location' => 'vendor');
         }
 
         $this->writeConfig($configFile, $config);
@@ -454,8 +484,6 @@ PHP;
 
     /**
      * Ensure that the vendor/nova-modules.php file exists.
-     *
-     * If config/modules.php is found - copy it to the vendor folder
      *
      * @param string $path the config file path.
      * @return void
@@ -503,8 +531,18 @@ PHP;
 
         $data = '';
 
-        foreach ($config['modules'] as $name => $modulePath) {
-            $data .= sprintf("        '%s' => '%s',\n", $name, $modulePath);
+        foreach ($config['modules'] as $name => $properties) {
+            $modulePath = $properties['path'];
+            $version    = $properties['version'];
+            $location   = $properties['location'];
+
+            //
+            $data .= sprintf(
+"        '%s' => array(
+             'path'     => '%s',
+             'version'  => '%s',
+             'location' => '%s',
+         ),", $name, $modulePath, $version, $location);
         }
 
         if (! empty($data)) {
