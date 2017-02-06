@@ -235,8 +235,6 @@ class ModuleInstaller extends LibraryInstaller
          ),", $name, $modulePath, $version, $location);
         }
 
-        echo var_export($data, true) ."\n\n";
-        
         $data = implode(",\n", $data);
 
         if (! empty($data)) {
@@ -546,6 +544,8 @@ PHP;
              'location' => '%s',
          ),", $name, $modulePath, $version, $location);
         }
+
+        echo var_export($data, true) ."\n\n";
 
         if (! empty($data)) {
             $contents = <<<PHP
