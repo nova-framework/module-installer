@@ -182,7 +182,7 @@ class ModuleInstaller extends LibraryInstaller
 
                     $version = $properties['version'];
                 } else {
-                    $version = '0.0.0.0';
+                    $version = '0.0.0';
                 }
 
                 $modules[$name] = array('version' => $version, 'path' => $path, 'location' => 'local');
@@ -235,6 +235,8 @@ class ModuleInstaller extends LibraryInstaller
          ),", $name, $modulePath, $version, $location);
         }
 
+        echo var_export($data, true) ."\n\n";
+        
         $data = implode(",\n", $data);
 
         if (! empty($data)) {
