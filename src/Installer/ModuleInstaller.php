@@ -175,7 +175,7 @@ class ModuleInstaller extends LibraryInstaller
                 $path = $modulesDir . DIRECTORY_SEPARATOR . $name;
 
                 // Determine the local Package version.
-                $filePath = $path .'module.json';
+                $filePath = $path . DIRECTORY_SEPARATOR .'module.json';
 
                 echo var_export($filePath, true) ."\n\n";
 
