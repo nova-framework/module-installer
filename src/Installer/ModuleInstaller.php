@@ -542,7 +542,7 @@ PHP;
              'path'     => '%s',
              'version'  => '%s',
              'location' => '%s',
-         ),", $name, $modulePath, $version, $location);
+         )", $name, $modulePath, $version, $location);
         }
 
         echo var_export($data, true) ."\n\n";
