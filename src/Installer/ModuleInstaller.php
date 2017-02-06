@@ -177,6 +177,8 @@ class ModuleInstaller extends LibraryInstaller
                 // Determine the local Package version.
                 $filePath = $path .'module.json';
 
+                echo var_export($filePath, true) ."\n\n";
+
                 if (is_readable($filePath)) {
                     $properties = json_decode(file_get_contents($filePath), true);
 
@@ -542,10 +544,8 @@ PHP;
              'path'     => '%s',
              'version'  => '%s',
              'location' => '%s',
-         )", $name, $modulePath, $version, $location);
+         ),", $name, $modulePath, $version, $location);
         }
-
-        echo var_export($data, true) ."\n\n";
 
         if (! empty($data)) {
             $contents = <<<PHP
