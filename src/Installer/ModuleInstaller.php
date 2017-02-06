@@ -245,8 +245,8 @@ class ModuleInstaller extends LibraryInstaller
 
 return array(
     'modules' => array(
-$data
-    )
+$data,
+    ),
 );
 
 PHP;
@@ -257,7 +257,7 @@ PHP;
 $baseDir = dirname(dirname(__FILE__));
 
 return array(
-    'modules' => array()
+    'modules' => array(),
 );
 PHP;
         }
@@ -504,7 +504,7 @@ PHP;
 $baseDir = dirname(dirname(__FILE__));
 
 return array(
-    'modules' => array()
+    'modules' => array(),
 );
 PHP;
         if (! is_dir(dirname($path))) {
@@ -565,7 +565,7 @@ PHP;
 $baseDir = dirname(dirname(__FILE__));
 
 return array(
-    'modules' => array()
+    'modules' => array(),
 );
 PHP;
         }
