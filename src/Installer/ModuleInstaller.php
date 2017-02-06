@@ -271,7 +271,7 @@ PHP;
         // Normalize to *nix paths.
         $root = str_replace('\\', '/', $root);
 
-        $contents = str_replace('\'' . $root, '$baseDir . \'', $contents);
+        $contents = str_replace('\'' .$root, '$baseDir .\'', $contents);
 
         file_put_contents($configFile, $contents);
     }
@@ -572,7 +572,7 @@ PHP;
 
         $root = str_replace('\\', '/', $root);
 
-        $contents = str_replace('\'' . $root, '$baseDir . \'', $contents);
+        $contents = str_replace('\'' .$root, '$baseDir .\'', $contents);
 
         file_put_contents($path, $contents);
     }
