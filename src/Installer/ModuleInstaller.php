@@ -157,7 +157,7 @@ class ModuleInstaller extends LibraryInstaller
 
             $path = $vendorDir . DIRECTORY_SEPARATOR . $package->getPrettyName();
 
-            $version = $package->getVersion();
+            $version = $package->getPrettyVersion();
 
             $modules[$namespace] = array('version' => $version, 'path' => $path, 'location' => 'vendor');
         }
@@ -185,7 +185,9 @@ class ModuleInstaller extends LibraryInstaller
                     $version = '0.0.0';
                 }
 
-                $modules[$name] = array('version' => $version, 'path' => $path, 'location' => 'local');
+                $namespace = 'Modules\\' .$name;
+
+                $modules[$namespace] = array('version' => $version, 'path' => $path, 'location' => 'local');
             }
         }
 
